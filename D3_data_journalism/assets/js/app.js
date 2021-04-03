@@ -81,9 +81,9 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
         // return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
       });
 
-    // // Step 7: Create tooltip in the chart
-    // // ==============================
-    // chartGroup.call(toolTip);
+    // Step 7: Create tooltip in the chart
+    // ==============================
+    chartGroup.call(toolTip);
 
     // // Step 8: Create event listeners to display and hide the tooltip
     // // ==============================
