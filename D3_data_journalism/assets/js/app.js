@@ -44,10 +44,10 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
       .domain([0, d3.max(demoData, d => d.smokes)])
       .range([height, 0]);
 
-    // // Step 3: Create axis functions
-    // // ==============================
-    // var bottomAxis = d3.axisBottom(xLinearScale);
-    // var leftAxis = d3.axisLeft(yLinearScale);
+    // Step 3: Create axis functions
+    // ==============================
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
 
     // // Step 4: Append Axes to the chart
     // // ==============================
