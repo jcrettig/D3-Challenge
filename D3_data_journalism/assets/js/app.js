@@ -95,14 +95,16 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
         toolTip.hide(data);
       });
 
-    // // Create axes labels
-    // chartGroup.append("text")
-    //   .attr("transform", "rotate(-90)")
-    //   .attr("y", 0 - margin.left + 40)
-    //   .attr("x", 0 - (height / 2))
-    //   .attr("dy", "1em")
-    //   .attr("class", "axisText")
-    //   .text("Number of Billboard 100 Hits");
+    // Step 9: Create axes labels
+    // ==============================
+    chartGroup
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left + 40)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .attr("class", "axisText")
+      .text("In Poverty (%)");
 
     // chartGroup.append("text")
     //   .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
