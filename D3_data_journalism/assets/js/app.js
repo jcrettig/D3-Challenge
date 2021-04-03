@@ -42,7 +42,7 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(demoData, d => d.smokes)])
+      .domain([6, d3.max(demoData, d => d.smokes)])
       .range([height, 0]);
 
     // Step 3: Create axis functions
@@ -68,8 +68,8 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.smokes))
     .attr("r", "15")
-    .attr("fill", "pink")
-    .attr("opacity", "1.0");                 // opacity range is 0 to 1
+    .attr("fill", "blue")
+    .attr("opacity", ".60");                 // opacity range is 0 to 1
 
     // Step 6: Initialize tool tip
     // ==============================
@@ -109,7 +109,7 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
-      .text("Smokes (%)");
+      .text("Percent that Smoke (%)");
 })
 
   .catch(function(error) {
