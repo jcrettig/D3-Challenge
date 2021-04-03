@@ -25,22 +25,24 @@ var chartGroup = svg.append("g")
 d3.csv("assets/data/data.csv").then(function(demoData) {
     console.log(demoData)
 
-    // // Step 1: Parse Data/Cast as numbers
-    // // ==============================
-    // hairData.forEach(function(data) {
-    //   data.hair_length = +data.hair_length;
-    //   data.num_hits = +data.num_hits;
-    // });
+    // Step 1: Parse Data/Cast as numbers
+    // ==============================
+    demoData.forEach((data) =>{
+      data.poverty = +data.poverty;     
+      data.smokes = +data.smokes;
+      console.log(data.poverty)
+      console.log(data.smokes)
+    });
 
-    // // Step 2: Create scale functions
-    // // ==============================
-    // var xLinearScale = d3.scaleLinear()
-    //   .domain([20, d3.max(hairData, d => d.hair_length)])
-    //   .range([0, width]);
+    // Step 2: Create scale functions
+    // ==============================
+    var xLinearScale = d3.scaleLinear()
+      .domain([20, d3.max(demoData, d => d.poverty)])
+      .range([0, width]);
 
-    // var yLinearScale = d3.scaleLinear()
-    //   .domain([0, d3.max(hairData, d => d.num_hits)])
-    //   .range([height, 0]);
+    var yLinearScale = d3.scaleLinear()
+      .domain([0, d3.max(demoData, d => d.smokes)])
+      .range([height, 0]);
 
     // // Step 3: Create axis functions
     // // ==============================
