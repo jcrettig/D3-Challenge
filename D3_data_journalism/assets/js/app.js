@@ -32,6 +32,7 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
       data.smokes = +data.smokes;
       console.log(data.poverty)
       console.log(data.smokes)
+      console.log(data.abbr)
     });
 
     // Step 2: Create scale functions
@@ -70,14 +71,15 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     .attr("fill", "pink")
     .attr("opacity", "1.0");                 // opacity range is 0 to 1
 
-    // // Step 6: Initialize tool tip
-    // // ==============================
-    // var toolTip = d3.tip()
-    //   .attr("class", "tooltip")     //style
-    //   .offset([80, -60])            //placement
-    //   .html(function(d) {           //structure/content
-    //     return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
-    //   });
+    // Step 6: Initialize tool tip
+    // ==============================
+    var toolTip = d3.tip()
+      .attr("class", "tooltip")     //style
+      .offset([80, -60])            //placement
+      .html(function(d) {           //structure/content
+        return(d.abbr)        
+        // return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
+      });
 
     // // Step 7: Create tooltip in the chart
     // // ==============================
