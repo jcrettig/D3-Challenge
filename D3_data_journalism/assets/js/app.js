@@ -58,17 +58,17 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     chartGroup.append("g")
       .call(leftAxis);
 
-    // // Step 5: Create Circles
-    // // ==============================
-    // var circlesGroup = chartGroup.selectAll("circle")
-    // .data(hairData)
-    // .enter()
-    // .append("circle")
-    // .attr("cx", d => xLinearScale(d.hair_length))
-    // .attr("cy", d => yLinearScale(d.num_hits))
-    // .attr("r", "15")
-    // .attr("fill", "pink")
-    // .attr("opacity", "1.0");                 // opacity range is 0 to 1
+    // Step 5: Create Circles
+    // ==============================
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(demoData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.smokes))
+    .attr("r", "15")
+    .attr("fill", "pink")
+    .attr("opacity", "1.0");                 // opacity range is 0 to 1
 
     // // Step 6: Initialize tool tip
     // // ==============================
