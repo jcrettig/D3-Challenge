@@ -13,7 +13,7 @@ var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart, 
 // and shift the latter by left and top margins.
-var svg = d3.select(".chart")
+var svg = d3.select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -38,7 +38,7 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-      .domain([20, d3.max(demoData, d => d.poverty)])
+      .domain([8, d3.max(demoData, d => d.poverty)])
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
@@ -75,7 +75,7 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     // ==============================
     var toolTip = d3.tip()
       .attr("class", "tooltip")     //style
-      .offset([80, -60])            //placement
+      .offset([25, 0])            //placement
       .html(function(d) {           //structure/content
         return(d.abbr)        
         // return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
@@ -106,12 +106,10 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
       .attr("class", "axisText")
       .text("In Poverty (%)");
 
-    // chartGroup.append("text")
-    //   .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-    //   .attr("class", "axisText")
-    //   .text("Hair Metal Band Hair Length (inches)");
-
-
+    chartGroup.append("text")
+      .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+      .attr("class", "axisText")
+      .text("Smokes (%)");
 })
 
   .catch(function(error) {
