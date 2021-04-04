@@ -22,46 +22,46 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import Data
-d3.csv("assets/data/data.csv").then(function(demoData) {
-    console.log(demoData)
+d3.csv("assets/data/data.csv").then(function (demoData) {
+  // console.log(demoData)
 
-    // Step 1: Parse Data/Cast as numbers
-    // ==============================
-    demoData.forEach((data) =>{
-      data.poverty = +data.poverty;     
-      data.smokes = +data.smokes;
-      console.log(data.poverty)
-      console.log(data.smokes)
-      console.log(data.abbr)
-    });
+  // Step 1: Parse Data/Cast as numbers
+  // ==============================
+  demoData.forEach((data) => {
+    data.poverty = +data.poverty;
+    data.smokes = +data.smokes;
+    // console.log(data.poverty)
+    // console.log(data.smokes)
+    // console.log(data.abbr)
+  });
 
-    // Step 2: Create scale functions
-    // ==============================
-    var xLinearScale = d3.scaleLinear()
-      .domain([8, d3.max(demoData, d => d.poverty)])
-      .range([0, width]);
+  // Step 2: Create scale functions
+  // ==============================
+  var xLinearScale = d3.scaleLinear()
+    .domain([8, d3.max(demoData, d => d.poverty)])
+    .range([0, width]);
 
-    var yLinearScale = d3.scaleLinear()
-      .domain([6, d3.max(demoData, d => d.smokes)])
-      .range([height, 0]);
+  var yLinearScale = d3.scaleLinear()
+    .domain([6, d3.max(demoData, d => d.smokes)])
+    .range([height, 0]);
 
-    // Step 3: Create axis functions
-    // ==============================
-    var bottomAxis = d3.axisBottom(xLinearScale);
-    var leftAxis = d3.axisLeft(yLinearScale);
+  // Step 3: Create axis functions
+  // ==============================
+  var bottomAxis = d3.axisBottom(xLinearScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
 
-    // Step 4: Append Axes to the chart
-    // ==============================
-    chartGroup.append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(bottomAxis);
+  // Step 4: Append Axes to the chart
+  // ==============================
+  chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
 
-    chartGroup.append("g")
-      .call(leftAxis);
+  chartGroup.append("g")
+    .call(leftAxis);
 
-    // Step 5: Create Circles
-    // ==============================
-    var circlesGroup = chartGroup.selectAll("circle")
+  // Step 5: Create Circles
+  // ==============================
+  var circlesGroup = chartGroup.selectAll("circle")
     .data(demoData)
     .enter()
     .append("circle")
@@ -69,50 +69,59 @@ d3.csv("assets/data/data.csv").then(function(demoData) {
     .attr("cy", d => yLinearScale(d.smokes))
     .attr("r", "15")
     .attr("fill", "blue")
-    .attr("opacity", ".60");                 // opacity range is 0 to 1
+    .attr("opacity", ".60");     // opacity range is 0 to 1
 
-    // Step 6: Initialize tool tip
-    // ==============================
-    var toolTip = d3.tip()
-      .attr("class", "tooltip")     //style
-      .offset([25, 0])            //placement
-      .html(function(d) {           //structure/content
-        return(d.abbr)        
-        // return (`${d.rockband}<br>Hair length: ${d.hair_length}<br>Hits: ${d.num_hits}`);
-      });
+  // // Step 5.5: Create Labels on circles                                  !!!!!!!
+  //   // ==============================
+  //  var textGroup = chartGroup.selectAll("text")
+  //     .data(demoData)
+  //     .enter()
+  //     .append("text")
+  //     .text((d) =>d.abbr)
+  //     .attr("cx", d => xLinearScale(d.poverty))
+  //     .attr("cy", d => yLinearScale(d.smokes))
 
-    // Step 7: Create tooltip in the chart
-    // ==============================
-    chartGroup.call(toolTip);
+  // Step 6: Initialize tool tip
+  // ==============================
+  var toolTip = d3.tip()
+    .attr("class", "tooltip")     //style
+    .offset([25, 0])            //placement
+    .html(function (d) {           //structure/content
+      return (d.abbr)
+    });
 
-    // Step 8: Create event listeners to display and hide the tooltip
-    // ==============================
-    circlesGroup.on("mouseover", function(data) {    // could also be mouseover
-      toolTip.show(data, this);
-    })
-      // onmouseout event
-      .on("mouseout", function(data, index) {
-        toolTip.hide(data);
-      });
+  // Step 7: Create tooltip in the chart
+  // ==============================
+  chartGroup.call(toolTip);
 
-    // Step 9: Create axes labels
-    // ==============================
-    chartGroup
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 40)
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "1em")
-      .attr("class", "axisText")
-      .text("In Poverty (%)");
+  // Step 8: Create event listeners to display and hide the tooltip
+  // ==============================
+  circlesGroup.on("click", function (data) {    // could also be mouseover
+    toolTip.show(data, this);
+  })
+    // onmouseout event
+    .on("mouseout", function (data, index) {
+      toolTip.hide(data);
+    });
 
-    chartGroup.append("text")
-      .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-      .attr("class", "axisText")
-      .text("Percent that Smoke (%)");
+  // Step 9: Create axes labels
+  // ==============================
+  chartGroup
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left + 40)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("class", "axisText")
+    .text("In Poverty (%)");
+
+  chartGroup.append("text")
+    .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+    .attr("class", "axisText")
+    .text("Percent that Smoke (%)");
 })
 
-  .catch(function(error) {
+  .catch(function (error) {
     console.log(error);
   });
 
