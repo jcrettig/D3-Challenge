@@ -29,10 +29,7 @@ d3.csv("assets/data/data.csv").then(function (demoData) {
   // ==============================
   demoData.forEach((data) => {
     data.poverty = +data.poverty;
-    data.smokes = +data.smokes;
-    // console.log(data.poverty)
-    // console.log(data.smokes)
-    // console.log(data.abbr)
+    data.smokes = +data.smokes;    
   });
 
   // Step 2: Create scale functions
@@ -61,50 +58,25 @@ d3.csv("assets/data/data.csv").then(function (demoData) {
 
   // Step 5: Create Circles
   // ==============================
-  var circlesGroup = chartGroup.selectAll("circle")
-    .data(demoData)
-    .enter()
+  var circlesGroup = chartGroup.selectAll("circle").data(demoData).enter();
+
+  circlesGroup
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.smokes))
     .attr("r", "15")
-    .attr("fill", "blue")
-    .attr("opacity", ".60");     // opacity range is 0 to 1
+    .attr("fill", "red")
+    .attr("opacity", ".60")  
 
-  // // Step 5.5: Create Labels on circles                                  !!!!!!!
-  //   // ==============================
-  //  var textGroup = chartGroup.selectAll("text")
-  //     .data(demoData)
-  //     .enter()
-  //     .append("text")
-  //     .text((d) =>d.abbr)
-  //     .attr("cx", d => xLinearScale(d.poverty))
-  //     .attr("cy", d => yLinearScale(d.smokes))
-
-  // Step 6: Initialize tool tip
-  // ==============================
-  var toolTip = d3.tip()
-    .attr("class", "tooltip")     //style
-    .offset([25, 0])            //placement
-    .html(function (d) {           //structure/content
-      return (d.abbr)
-    });
-
-  // Step 7: Create tooltip in the chart
-  // ==============================
-  chartGroup.call(toolTip);
-
-  // Step 8: Create event listeners to display and hide the tooltip
-  // ==============================
-  circlesGroup.on("click", function (data) {    // could also be mouseover
-    toolTip.show(data, this);
-  })
-    // onmouseout event
-    .on("mouseout", function (data, index) {
-      toolTip.hide(data);
-    });
-
-  // Step 9: Create axes labels
+  circlesGroup
+    .append("text")
+    .text(function (d) { return d.abbr; })
+    .attr("dx", function (d) { return xLinearScale(d.poverty) })
+    .attr("dy", function (d) { return yLinearScale(d.smokes) + 15 / 2.5; }) 
+    .attr("font-size", 15)
+    .attr("class", "stateText");
+  
+  // Step 6: Create axes labels
   // ==============================
   chartGroup
     .append("text")
